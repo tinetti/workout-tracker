@@ -1,5 +1,5 @@
 const bodyParser = require("body-parser");
-const service = require('./service.js');
+const service = require('../lib/service.js');
 
 module.exports.init = (app) => {
   app.use(bodyParser.urlencoded({extended: false}));
