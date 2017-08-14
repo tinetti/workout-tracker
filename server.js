@@ -10,6 +10,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+const config = {
+  mongo: {
+    url: 'mongodb://localhost:27017/workout-tracker'
+  }
+};
+require('./lib/service.js').init(config);
 require('./lib/routes.js').init(app);
 require('./lib/data.js').init(app);
 
