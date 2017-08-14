@@ -1,21 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="App">
+          <div className="App-header">
+            <h2>Workout Tracker</h2>
+          </div>
+          <PlanList/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
     );
   }
 }
+
+class PlanList extends Component {
+  render() {
+    return (
+        <div>Plans</div>
+    )
+  }
+}
+
+class Plan extends Component {
+  render() {
+    return (
+        <div>Plan:</div>
+    )
+  }
+}
+
+function findPlans(query, cb) {
+  return fetch(`api/food?q=${query}`, {
+    accept: "application/json"
+  })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(cb);
+}
+
 
 export default App;
