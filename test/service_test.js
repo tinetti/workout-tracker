@@ -4,15 +4,16 @@ const expect = require('chai').expect;
 
 const service = require('../lib/service.js');
 const data = require('../lib/data.js');
+const beforeEach = require("mocha").beforeEach;
+const before = require("mocha").before;
+const describe = require("eslint/lib/testers/event-generator-tester").describe;
+const it = require("eslint/lib/testers/event-generator-tester").it;
 
 const config = {
   mongo: {
     url: 'mongodb://localhost:27017/workout-tracker-test'
   }
 };
-
-let workout;
-let plan;
 
 describe('service', function () {
   before(function () {
@@ -51,7 +52,7 @@ describe('service', function () {
           return service.updateWorkout({_id: _id, name: 'Back and Bis'}).then(function (updated) {
             expect(updated).to.have.property('name', 'Back and Bis');
 
-            return service.deleteWorkoutById(_id).then(function (deleted) {
+            return service.deleteWorkoutById(_id).then(function () {
 
               return service.findWorkouts({_id: _id}).then(function (workouts) {
                 expect(workouts).to.be.empty;
@@ -78,11 +79,12 @@ describe('service', function () {
       expect(_id).to.not.be.undefined;
       return service.findPlanById(plans[0]._id).then(function (plan) {
         expect(plan._id).to.deep.equal(_id);
+        expect(plan.workoutGroups[0].workouts[0]).to.have.property('name', 'Chest and Triceps');
 
         return service.updatePlan({_id: plan._id, name: 'Beast Mode'}).then(function (updated) {
           expect(updated).to.have.property('name', 'Beast Mode');
 
-          return service.deletePlanById(_id).then(function (deleted) {
+          return service.deletePlanById(_id).then(function () {
 
             return service.findPlans({}).then(function (plans) {
               expect(plans).to.be.empty;

@@ -20,6 +20,7 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "chai-http": "^3.0.0",
     "concurrently": "3.1.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "14.1.0",
